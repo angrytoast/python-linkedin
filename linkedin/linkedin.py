@@ -341,6 +341,18 @@ class LinkedInApplication(object):
         raise_for_error(response)
         return response.json()
 
+    def get_company_update_comments(self, company_id, update_id, params=None, headers=None):
+        url = '%s/%s/updates/key=%s/update-comments' % (ENDPOINTS.COMPANIES, str(company_id), str(update_id))
+        response = self.make_request('GET', url, params=params, headers=headers)
+        raise_for_error(response)
+        return response.json()
+
+    def get_company_update_likes(self, company_id, update_id, params=None, headers=None):
+        url = '%s/%s/updates/key=%s/likes' % (ENDPOINTS.COMPANIES, str(company_id), str(update_id))
+        response = self.make_request('GET', url, params=params, headers=headers)
+        raise_for_error(response)
+        return response.json()
+
     def get_company_products(self, company_id, selectors=None, params=None,
                              headers=None):
         url = '%s/%s/products' % (ENDPOINTS.COMPANIES, str(company_id))
@@ -420,7 +432,7 @@ class LinkedInApplication(object):
         raise_for_error(response)
         return response.json()
 
-    def get_network_updates(self, types, member_id=None, 
+    def get_network_updates(self, types, member_id=None,
                             self_scope=True, params=None, headers=None):
         if member_id:
             url = '%s/id=%s/network/updates' % (ENDPOINTS.PEOPLE,
@@ -441,7 +453,7 @@ class LinkedInApplication(object):
         raise_for_error(response)
         return response.json()
 
-    def get_network_update(self, types, update_key, 
+    def get_network_update(self, types, update_key,
                             self_scope=True, params=None, headers=None):
         url = '%s/~/network/updates/key=%s' % (ENDPOINTS.PEOPLE, str(update_key))
 
