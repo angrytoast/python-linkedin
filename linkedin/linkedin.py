@@ -287,6 +287,16 @@ class LinkedInApplication(object):
         raise_for_error(response)
         return True
 
+    def get_post(self, post_id=None, selectors=None, params=None,
+                  headers=None):
+        url = '%s/%s' % (ENDPOINTS.POSTS, str(post_id))
+        if selectors:
+            url = '%s:(%s)' % (url, LinkedInSelector.parse(selectors))
+
+        response = self.make_request('GET', url, params=params, headers=headers)
+        raise_for_error(response)
+        return response.json()
+
     def like_post(self, post_id, action):
         url = '%s/%s/relation-to-viewer/is-liked' % (ENDPOINTS.POSTS, str(post_id))
         try:
